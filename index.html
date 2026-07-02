@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Energia10 — Gestão em Energia Solar</title>
+<meta name="description" content="Energia10 — Gestão em energia solar em Juazeiro-BA. Cuidamos das faturas de energia solar dos nossos clientes: acompanhamento das contas, cálculo da economia e emissão de faturas com desconto." />
+<link rel="icon" href="logo.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #14416b;
+    --navy-deep: #0d2a45;
+    --cyan: #06b6d4;
+    --sun: #f6a821;
+    --ink: #0f2233;
+    --muted: #5b7185;
+    --surface: #ffffff;
+    --bg: #f4f8fc;
+    --radius: 16px;
+    --shadow: 0 18px 40px -18px rgba(13, 42, 69, .35);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    color: var(--ink); background: var(--bg); line-height: 1.6;
+  }
+  h1, h2, h3 { font-family: 'Poppins', 'Inter', sans-serif; line-height: 1.15; }
+  a { color: inherit; text-decoration: none; }
+  .wrap { width: min(1080px, 92vw); margin-inline: auto; }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(255,255,255,.82); backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(20,65,107,.08);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; color: var(--navy); }
+  .brand img { height: 42px; width: auto; }
+  .brand span { font-family: 'Poppins', sans-serif; font-size: 1.15rem; letter-spacing: .2px; }
+  .nav-cta {
+    background: var(--navy); color: #fff; padding: 10px 18px; border-radius: 999px;
+    font-weight: 600; font-size: .92rem; transition: transform .15s ease, background .2s ease;
+  }
+  .nav-cta:hover { background: var(--navy-deep); transform: translateY(-1px); }
+
+  /* Hero */
+  .hero {
+    position: relative; overflow: hidden;
+    background:
+      radial-gradient(900px 500px at 82% -10%, rgba(246,168,33,.28), transparent 60%),
+      radial-gradient(700px 500px at 0% 110%, rgba(6,182,212,.20), transparent 55%),
+      linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+    color: #eaf3fb;
+  }
+  .hero .wrap { padding: 84px 0 96px; position: relative; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.18);
+    padding: 7px 14px; border-radius: 999px; font-size: .82rem; font-weight: 600;
+    letter-spacing: .6px; text-transform: uppercase; color: #cfe6f7;
+  }
+  .hero h1 { font-size: clamp(2.1rem, 1.1rem + 4.4vw, 3.9rem); font-weight: 800; margin: 22px 0 16px; color: #fff; }
+  .hero h1 .accent { color: var(--sun); }
+  .hero p.lead { font-size: clamp(1.02rem, .95rem + .5vw, 1.28rem); max-width: 620px; color: #c9ddee; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px; font-weight: 600;
+    padding: 14px 26px; border-radius: 999px; transition: transform .15s ease, box-shadow .2s ease;
+  }
+  .btn-sun { background: var(--sun); color: #3a2500; box-shadow: 0 12px 26px -10px rgba(246,168,33,.65); }
+  .btn-sun:hover { transform: translateY(-2px); }
+  .btn-ghost { border: 1.5px solid rgba(255,255,255,.35); color: #fff; }
+  .btn-ghost:hover { background: rgba(255,255,255,.10); transform: translateY(-2px); }
+
+  /* Stats strip */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 60px; }
+  .stat { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14); border-radius: var(--radius); padding: 22px; }
+  .stat b { display: block; font-family: 'Poppins', sans-serif; font-size: 1.7rem; color: var(--sun); }
+  .stat small { color: #bcd4e8; font-size: .92rem; }
+
+  /* Sections */
+  section.block { padding: 84px 0; }
+  .kicker { color: var(--cyan); font-weight: 700; letter-spacing: 1px; text-transform: uppercase; font-size: .82rem; }
+  h2.title { font-size: clamp(1.7rem, 1.2rem + 2vw, 2.5rem); color: var(--navy); margin: 10px 0 14px; font-weight: 800; }
+  .sub { color: var(--muted); max-width: 640px; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-top: 44px; }
+  .card {
+    background: var(--surface); border-radius: var(--radius); padding: 30px 26px;
+    border: 1px solid rgba(20,65,107,.08); box-shadow: var(--shadow);
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 26px 50px -20px rgba(13,42,69,.4); }
+  .card .ic { width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center;
+    font-size: 1.5rem; margin-bottom: 18px; background: linear-gradient(140deg, var(--navy), var(--cyan)); }
+  .card h3 { font-size: 1.2rem; color: var(--navy); margin-bottom: 8px; }
+  .card p { color: var(--muted); font-size: .98rem; }
+
+  /* CTA / contact */
+  .contact { background: linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%); color: #eaf3fb; }
+  .contact .wrap { padding: 74px 0; }
+  .contact h2 { color: #fff; }
+  .contact .sub { color: #c3d9ec; }
+  .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 40px; }
+  .cc { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.15); border-radius: var(--radius); padding: 24px; }
+  .cc small { color: #a9c6dd; text-transform: uppercase; letter-spacing: .6px; font-size: .74rem; font-weight: 700; }
+  .cc a, .cc span { display: block; margin-top: 8px; font-size: 1.06rem; font-weight: 600; color: #fff; word-break: break-word; }
+  .cc a:hover { color: var(--sun); }
+
+  /* Footer */
+  footer { background: #0a2036; color: #9db6cc; padding: 36px 0; font-size: .9rem; }
+  .foot { display: flex; flex-wrap: wrap; gap: 10px 26px; align-items: center; justify-content: space-between; }
+  .foot b { color: #e6f0f9; }
+
+  @media (max-width: 760px) {
+    .stats, .cards, .contact-grid { grid-template-columns: 1fr; }
+    .nav-cta { display: none; }
+    section.block, .hero .wrap, .contact .wrap { padding-left: 0; padding-right: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <div class="brand"><img src="logo.png" alt="Energia10" /><span>Energia10</span></div>
+    <a class="nav-cta" href="#contato">Fale conosco</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="eyebrow">☀️ Gestão em Energia Solar</span>
+    <h1>Mais economia na sua conta de luz, <span class="accent">sem dor de cabeça.</span></h1>
+    <p class="lead">A Energia10 cuida de ponta a ponta da gestão das faturas de energia solar dos seus clientes — acompanhamento das contas, cálculo da economia e emissão das faturas com desconto.</p>
+    <div class="hero-actions">
+      <a class="btn btn-sun" href="#contato">Fale com a gente</a>
+      <a class="btn btn-ghost" href="#servicos">Como funciona</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>100%</b><small>gestão das faturas de energia solar</small></div>
+      <div class="stat"><b>Todo mês</b><small>acompanhamento das contas e da economia</small></div>
+      <div class="stat"><b>Sem esforço</b><small>você recebe tudo pronto, com desconto aplicado</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="servicos">
+  <div class="wrap">
+    <span class="kicker">O que fazemos</span>
+    <h2 class="title">Cuidamos de toda a gestão da sua energia solar</h2>
+    <p class="sub">Da conta da distribuidora até a fatura final do cliente, a Energia10 organiza cada etapa para você economizar de verdade.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="ic">📊</div>
+        <h3>Acompanhamento das contas</h3>
+        <p>Monitoramos as contas de energia mês a mês e mantemos tudo organizado, sem você precisar se preocupar.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🧮</div>
+        <h3>Cálculo da economia</h3>
+        <p>Calculamos com precisão a economia gerada pela energia solar e mostramos o quanto você poupa a cada fatura.</p>
+      </div>
+      <div class="card">
+        <div class="ic">🧾</div>
+        <h3>Faturas com desconto</h3>
+        <p>Emitimos e enviamos as faturas já com o desconto aplicado — claras, no prazo e prontas para pagar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contato">
+  <div class="wrap">
+    <span class="kicker" style="color:#7fdcec">Contato</span>
+    <h2 class="title">Fale com a Energia10</h2>
+    <p class="sub">Estamos em Juazeiro-BA e atendemos você por telefone, WhatsApp ou e-mail.</p>
+    <div class="contact-grid">
+      <div class="cc">
+        <small>WhatsApp / Telefone</small>
+        <a href="https://wa.me/5574999951212">(74) 99995-1212</a>
+      </div>
+      <div class="cc">
+        <small>E-mail</small>
+        <a href="mailto:marvelgames@hotmail.com">marvelgames@hotmail.com</a>
+      </div>
+      <div class="cc">
+        <small>Onde estamos</small>
+        <span>Juazeiro — Bahia</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span><b>Energia10</b> — Gestão em Energia Solar · Juazeiro-BA</span>
+    <span>CNPJ 67.286.622/0001-07</span>
+    <span>© 2026 Energia10</span>
+  </div>
+</footer>
+
+</body>
+</html>
